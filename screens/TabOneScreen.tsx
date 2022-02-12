@@ -1,13 +1,27 @@
-import { StyleSheet } from 'react-native';
+import {Pressable, StyleSheet} from 'react-native';
 
-import EditScreenInfo from '../components/EditScreenInfo';
-import { Text, View } from '../components/Themed';
+import { Text, View, EditScreenInfo } from 'components';
 import { RootTabScreenProps } from '../types';
+import {FontAwesome} from "@expo/vector-icons";
+import Colors from "../constants/Colors";
+import * as React from "react";
 
 export default function TabOneScreen({ navigation }: RootTabScreenProps<'TabOne'>) {
   return (
     <View style={styles.container}>
+      <Pressable
+          onPress={() => navigation.navigate('Transactions')}
+          style={({ pressed }) => ({
+            opacity: pressed ? 0.5 : 1,
+          })}>
+        <FontAwesome
+            size={16}
+            style={{ marginRight: 15 }}
+        >Transactions</FontAwesome>
+      </Pressable>
+
       <Text style={styles.title}>Tab One</Text>
+
       <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
       <EditScreenInfo path="/screens/TabOneScreen.tsx" />
     </View>
