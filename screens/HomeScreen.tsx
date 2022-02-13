@@ -1,5 +1,5 @@
 import * as React from "react";
-import { List} from "react-native-paper";
+import {List, Surface} from "react-native-paper";
 import {useMemo} from "react";
 import {IconName} from "components";
 import {ScreenProps} from "../navigation";
@@ -29,12 +29,13 @@ export function HomeScreen({ navigation }: ScreenProps) {
 
     return (
         <>
-            <List.Section>
+            {/* todo add styled surface */}
+            <>
                 {menuItems.map(({title, action, icon, disabled}, index) => (
                     <List.Item title={title} onPress={action} left={() => <List.Icon icon={icon}/>} right={() => <List.Icon icon={'chevron-right'}/>} disabled={disabled} key={index}/>
                 ))}
-            </List.Section>
+            </>
         </>
     );
-}
+};
 

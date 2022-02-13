@@ -1,41 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { Platform, StyleSheet } from 'react-native';
-
-import { Text, View } from 'components';
+import {AmountInput, TextInput, View} from 'components';
+import {useForm, useFormContext, useController, FormProvider} from "react-hook-form";
+import {Chip, Divider, Searchbar, Surface} from "react-native-paper";
+import {ScreenProps} from "../navigation";
 import {Transaction} from "models/Transaction";
-import {useForm} from "react-hook-form";
+import tw from "tailwind-react-native-classnames";
+import React, {useState} from "react";
 
-interface Props {
-    add: (transaction: Transaction) => void;
-}
+type FormState = Omit<Transaction, 'id'>;
 
-export function CreateTransactionModal({ add }: Props) {
-    const form = useForm();
+const values = ['first', 'second'];
+
+export function CreateTransactionModal(props: ScreenProps) {
+    const form = useForm<FormState>({defaultValues: {currency: 'RUB'}});
+    const [searchValues, setValues] = useState(values);
+
+    console.log('form', form.getValues());
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>New transaction</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
+        <View>
+            <FormProvider {...form}>
 
+                <Divider style={tw.style(['p-2'])}/>
+                <AmountInput<FormState> name={'amount'} label={'Amount'} keyboardType={'numeric'} autoComplete={false}/>
+
+                <Divider style={tw.style(['p-2'])}/>
+                <TextInput<FormState> label={'Currency'} autoComplete={false} disabled defaultValue={'RUB'} name={'currency'}/>
+
+                <Divider style={tw.style(['p-2'])}/>
+                <TextInput<FormState> label={'Category'} autoComplete={['first', 'second']} name={'category'} onAfterChangeText={(value) => {
+                    setValues(values.filter(it => it.includes(value)));
+                }}/>
+
+                <Divider style={tw.style(['p-2'])}/>
+                <Surface style={tw.style('flex')}>
+                {searchValues.map((it, index) => (
+                    <Chip icon="information" key={index} onPress={() => {
+                        form.setValue('category', it);
+                        setValues([it])
+                    }}>{it}</Chip>
+                ))}
+                </Surface>
+
+                <Divider style={tw.style(['p-2'])}/>
+                <TextInput<FormState> label={'Account'} autoComplete={false} name={'account'}/>
+
+                <Divider style={tw.style(['p-2'])}/>
+                <TextInput<FormState> label={'Party'} autoComplete={false} name={'party'}/>
+
+            </FormProvider>
             {/* Use a light status bar on iOS to account for the black space above the modal */}
-            <StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />
+            {/*<StatusBar style={Platform.OS === 'ios' ? 'light' : 'auto'} />*/}
+
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    title: {
-        fontSize: 20,
-        fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
-    },
-});

@@ -5,9 +5,6 @@ import {useState} from "react";
 import {Transaction} from "models/Transaction";
 import {ScreenProps} from "../navigation";
 
-interface Props extends ScreenProps {
-    title?: string
-}
 
 const TransactionDiv = (props: Transaction) => {
     return (
@@ -17,13 +14,12 @@ const TransactionDiv = (props: Transaction) => {
     )
 }
 
-export function TransactionsScreen({title}: Props) {
+export function TransactionsScreen(props: ScreenProps) {
     const [transactions, setTransactions] = useState<Transaction[]>();
 
     return (
         <View style={styles.container}>
-            <Text style={styles.title}>{title ?? 'transactions'}</Text>
-            <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)"/>
+            <Text>place for transaction list</Text>
             {transactions?.map(it => (
                 <TransactionDiv key={it.id} {...it}/>
             ))}
@@ -33,17 +29,12 @@ export function TransactionsScreen({title}: Props) {
 
 const styles = StyleSheet.create({
     container: {
+        paddingVertical: 10,
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center',
     },
     title: {
         fontSize: 20,
         fontWeight: 'bold',
-    },
-    separator: {
-        marginVertical: 30,
-        height: 1,
-        width: '80%',
     },
 });
