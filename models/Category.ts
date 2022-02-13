@@ -1,21 +1,24 @@
+import { IconName } from "components/Icon";
 
-const CategoryTypeCodeValues = [
-    'INCOME',
-    'OUTCOME'
+const CategoryTypeCodeValues = ["INCOME", "EXPENSES"] as const;
+
+type CategoryTypeCode = typeof CategoryTypeCodeValues[number];
+
+const categoryNameValues = [
+  "food delivery",
+  "groceries",
+  "salary",
+  "transport",
+  "gifts",
+  "gadgets",
+  "bills",
+  "coffee"
 ] as const;
 
-type CategoryTypeCode = typeof CategoryTypeCodeValues[number]
-
-
-const categoryCodeValues = [
-    'FOOD_DELIVERY',
-    'GROCERIES',
-] as const;
-
-type CategoryCode = typeof categoryCodeValues[number]
+type CategoryName = typeof categoryNameValues[number];
 
 export interface Category {
-    code: CategoryCode;
-    name: string;
-    typeCode: CategoryTypeCode;
+  name: CategoryName;
+  type: CategoryTypeCode;
+  icon: IconName;
 }

@@ -1,8 +1,9 @@
-export * from './AmountInput';
-export * from './TextInput';
-export * from './Icon';
+export * from "./AmountInput";
+export * from "./TextInput";
+export * from "./Icon";
+export * from "./SelectInput";
 
 // deprecated
-export * from './EditScreenInfo';
-export * from './StyledText';
-export * from './Themed';
+export * from "./EditScreenInfo";
+export * from "./StyledText";
+export * from "./Themed";
