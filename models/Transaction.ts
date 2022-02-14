@@ -1,22 +1,24 @@
-import { v4 as uuidv4 } from 'uuid';
+import uuid from "react-native-uuid";
 
-enum TransactionIdBrand { _=''}
+enum TransactionIdBrand {
+  _ = ""
+}
 type TransactionId = TransactionIdBrand & string;
 
 export interface Transaction {
-    id: TransactionId,
-    amount: string,
-    currency: string,
-    account: string,
-    category: string,
-    party: string,
+  id: TransactionId;
+  amount: number;
+  currency: string;
+  account: string;
+  category: string;
+  party: string;
 }
 
-const createTransaction = (params: Omit<Transaction, 'id'>): Transaction => {
-    const id = uuidv4() as TransactionId;
-    return {...params, id };
-}
+const createTransaction = (params: Omit<Transaction, "id">): Transaction => {
+  const id = uuid.v4() as TransactionId;
+  return { ...params, id };
+};
 
 export const transactionUtils = {
-    create: createTransaction,
-}
+  create: createTransaction
+};

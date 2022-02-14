@@ -1,22 +1,47 @@
 import { AmountInput, SelectInput, TextInput, View } from "components";
 import { useForm, FormProvider } from "react-hook-form";
-import { Chip, TextInput as PaperTextInput } from "react-native-paper";
 import { ScreenProps } from "../navigation";
-import { Transaction } from "models/Transaction";
+import { Transaction, transactionUtils } from "models/Transaction";
 import tw from "tailwind-react-native-classnames";
-import React, { useMemo, useState } from "react";
+import React, { useEffect } from "react";
 import { accountDictionary, categoryDictionary } from "models/dictionaries";
-import { KeyboardAvoidingView, SafeAreaView, ScrollView } from "react-native";
+import { Button, KeyboardAvoidingView, ScrollView } from "react-native";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
 type FormState = Omit<Transaction, "id">;
 
-export function CreateTransactionModal(props: ScreenProps) {
-  const form = useForm<FormState>({ defaultValues: { currency: "RUB" } });
+const getResolver = () =>
+  yupResolver<yup.SchemaOf<FormState>>(
+    yup.object({
+      account: yup.string().required(),
+      amount: yup.number().required(),
+      category: yup.string().required(),
+      party: yup.string().required(),
+      currency: yup.string().required()
+    })
+  );
 
-  console.log("form", form.getValues());
+export function CreateTransactionModal({ navigation }: ScreenProps) {
+  const formMethods = useForm<FormState>({
+    defaultValues: { currency: "RUB" },
+    resolver: getResolver()
+  });
+
+  const onSubmit = async (form: FormState) => {
+    if (!(await formMethods.trigger())) return;
+    const transaction = transactionUtils.create(form);
+    console.log("transaction", transaction);
+  };
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => <Button title={"Save"} onPress={() => onSubmit(formMethods.getValues())} />
+    });
+  }, []);
 
   return (
-    <FormProvider {...form}>
+    <FormProvider {...formMethods}>
       <KeyboardAvoidingView
         behavior="padding"
         enabled
@@ -28,7 +53,6 @@ export function CreateTransactionModal(props: ScreenProps) {
             style={[styles.input, styles.firstInput]}
             name={"amount"}
             label={"Amount"}
-            keyboardType={"numeric"}
             autoComplete={false}
           />
 

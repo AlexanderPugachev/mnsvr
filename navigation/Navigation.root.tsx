@@ -28,7 +28,7 @@ export function RootNavigator() {
           component={CreateTransactionModal}
           options={({ navigation }) => ({
             title: "create transaction",
-            headerRight: () => <Button title={"Save"} onPress={() => navigation.goBack()} />,
+            // headerRight: () => <Button title={"Save"} onPress={() => navigation.goBack()} />,
             headerLeft: () => <Button title={"Cancel"} onPress={() => navigation.goBack()} />
           })}
         />
