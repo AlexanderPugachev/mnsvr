@@ -1,4 +1,4 @@
-import { AmountInput, SelectInput, TextInput, View } from "components";
+import { AmountInput, SelectInput, TextInput } from "components";
 import { useForm, FormProvider } from "react-hook-form";
 import { ScreenProps } from "../navigation";
 import { Transaction, transactionUtils } from "models/Transaction";
@@ -58,6 +58,13 @@ export function CreateTransactionModal({ navigation }: ScreenProps) {
 
           <TextInput<FormState>
             style={styles.input}
+            label={"Party"}
+            autoComplete={false}
+            name={"party"}
+          />
+
+          <TextInput<FormState>
+            style={[styles.input, tw.style("hidden")]}
             label={"Currency"}
             autoComplete={false}
             disabled
@@ -79,13 +86,6 @@ export function CreateTransactionModal({ navigation }: ScreenProps) {
             autoComplete={false}
             label={"Account"}
             style={styles.input}
-          />
-
-          <TextInput<FormState>
-            style={styles.input}
-            label={"Party"}
-            autoComplete={false}
-            name={"party"}
           />
         </ScrollView>
       </KeyboardAvoidingView>

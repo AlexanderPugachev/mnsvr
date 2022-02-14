@@ -44,6 +44,7 @@
     "react-native-svg": "^12.1.1",
     "react-native-uuid": "^2.0.1",
     "react-native-web": "0.17.1",
+    "realm": "^10.13.0",
     "tailwind-react-native-classnames": "^1.5.1",
     "tailwindcss": "^3.0.22",
     "yup": "^0.32.11"

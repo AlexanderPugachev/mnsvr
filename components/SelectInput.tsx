@@ -1,7 +1,7 @@
 import React, { FC, useMemo, useState } from "react";
 import { TextInput } from "components/TextInput";
 import { FieldPath, useController, useFormContext } from "react-hook-form";
-import { Chip, Surface, TextInput as PaperTextInput } from "react-native-paper";
+import { Chip, Text, TextInput as PaperTextInput } from "react-native-paper";
 import tw from "tailwind-react-native-classnames";
 import { IconName } from "components/Icon";
 import { ScrollView, View } from "react-native";
@@ -33,12 +33,14 @@ export const SelectInput = <Form extends object>({
 
   return (
     <View style={[styles.inputWrapper, style, styles.inputWrapperImportant]}>
+      <Text>{props.label}</Text>
       <TextInput<Form>
         right={isFieldFilled && <PaperTextInput.Icon name={filteredOptions[0].icon} />}
         name={name}
         onAfterChangeText={(value) => {
           setFilteredOptions(options.filter((it) => it.name.includes(value)));
         }}
+        style={tw.style("hidden")}
         {...props}
       />
 
