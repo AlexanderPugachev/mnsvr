@@ -22,8 +22,6 @@
     "@react-navigation/native-stack": "^6.1.0",
     "@types/react-native-uuid": "^2.0.0",
     "@types/yup": "^0.29.13",
-    "@ui-kitten/components": "^5.1.1",
-    "@ui-kitten/eva-icons": "^5.1.1",
     "autoprefixer": "^10.4.2",
     "babel-plugin-module-resolver": "^4.1.0",
     "expo": "~44.0.0",
@@ -48,14 +46,12 @@
     "react-native-web": "0.17.1",
     "tailwind-react-native-classnames": "^1.5.1",
     "tailwindcss": "^3.0.22",
-    "uuid": "^8.3.2",
     "yup": "^0.32.11"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
     "@types/react": "~17.0.21",
     "@types/react-native": "~0.64.12",
-    "@types/uuid": "^8.3.4",
     "jest": "^26.6.3",
     "jest-expo": "~44.0.1",
     "react-test-renderer": "17.0.1",
