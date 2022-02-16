@@ -1,10 +1,10 @@
 import { AmountInput, SelectInput, TextInput } from "components";
 import { useForm, FormProvider } from "react-hook-form";
-import { ScreenProps } from "../navigation";
-import { Transaction, transactionUtils } from "models/Transaction";
+import { ScreenProps } from "navigation";
+import { Transaction, transactionUtils } from "models";
 import tw from "tailwind-react-native-classnames";
 import React, { useEffect } from "react";
-import { accountDictionary, categoryDictionary } from "models/dictionaries";
+import { accountDictionary, categoryDictionary } from "dictionaries";
 import { Button, KeyboardAvoidingView, ScrollView } from "react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";

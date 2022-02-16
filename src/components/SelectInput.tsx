@@ -1,9 +1,9 @@
 import React, { FC, useMemo, useState } from "react";
-import { TextInput } from "components/TextInput";
+import { TextInput } from "./TextInput";
 import { FieldPath, useController, useFormContext } from "react-hook-form";
 import { Chip, Text, TextInput as PaperTextInput } from "react-native-paper";
 import tw from "tailwind-react-native-classnames";
-import { IconName } from "components/Icon";
+import { IconName } from "./Icon";
 import { ScrollView, View } from "react-native";
 
 interface AnyOption {

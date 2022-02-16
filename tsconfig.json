@@ -4,18 +4,24 @@
     "strict": true,
     "baseUrl": ".",
     "paths": {
-      "components/*": [
-        "./components/*"
+      "components": [
+        "./src/components"
       ],
-      "screens/*": [
-        "./screens/*"
+      "screens": [
+        "./src/screens"
       ],
-      "models/*": [
-        "./models/*"
+      "models": [
+        "./src/models"
       ],
       "store/*": [
-        "./store/*"
-      ]
+        "./src/store/*"
+      ],
+      "navigation": [
+        "./src/navigation"
+      ],
+      "dictionaries": [
+        "./src/models/dictionaries"
+      ],
     }
   },
   "exclude": ["node_modules", "babel.config.js"]
