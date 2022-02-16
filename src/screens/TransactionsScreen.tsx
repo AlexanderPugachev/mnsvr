@@ -1,20 +1,20 @@
 import { StyleSheet } from "react-native";
 
 import { Text, View } from "components";
-import { useState } from "react";
 import { Transaction } from "models";
 import { ScreenProps } from "navigation";
+import { useAllTransactions } from "store";
 
 const TransactionDiv = (props: Transaction) => {
   return (
-    <>
+    <Text>
       {props.amount} {props.party} {props.account}
-    </>
+    </Text>
   );
 };
 
 export function TransactionsScreen(props: ScreenProps) {
-  const [transactions, setTransactions] = useState<Transaction[]>();
+  const transactions = useAllTransactions();
 
   return (
     <View style={styles.container}>

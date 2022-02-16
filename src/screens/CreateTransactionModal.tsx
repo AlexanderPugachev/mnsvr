@@ -8,6 +8,7 @@ import { accountDictionary, categoryDictionary } from "dictionaries";
 import { Button, KeyboardAvoidingView, ScrollView } from "react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import { transactionSlice, useActions } from "store";
 
 type FormState = Omit<Transaction, "id">;
 
@@ -23,6 +24,8 @@ const getResolver = () =>
   );
 
 export function CreateTransactionModal({ navigation }: ScreenProps) {
+  const { setItem } = useActions(transactionSlice.actions);
+
   const formMethods = useForm<FormState>({
     defaultValues: { currency: "RUB" },
     resolver: getResolver()
@@ -31,7 +34,7 @@ export function CreateTransactionModal({ navigation }: ScreenProps) {
   const onSubmit = async (form: FormState) => {
     if (!(await formMethods.trigger())) return;
     const transaction = transactionUtils.create(form);
-    console.log("transaction", transaction);
+    setItem(transaction);
   };
 
   useEffect(() => {

@@ -9,9 +9,7 @@ const rootReducer = combineReducers({
   transactions: transactionSlice.reducer
 });
 
-export const store = configureStore({
-  reducer: rootReducer
-});
+export const store = configureStore({ reducer: rootReducer });
 
 store.subscribe(async () => await AsyncStorage.setItem("store", JSON.stringify(store.getState())));
 
