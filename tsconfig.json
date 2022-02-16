@@ -13,8 +13,8 @@
       "models": [
         "./src/models"
       ],
-      "store/*": [
-        "./src/store/*"
+      "store": [
+        "./src/store"
       ],
       "navigation": [
         "./src/navigation"
