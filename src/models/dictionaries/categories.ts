@@ -2,6 +2,11 @@ import { Category } from "../Category";
 
 export const categoryDictionary: Category[] = [
   {
+    name: "unknown",
+    icon: "help-circle-outline",
+    type: "EXPENSES"
+  },
+  {
     name: "food delivery",
     type: "EXPENSES",
     icon: "moped"

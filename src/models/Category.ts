@@ -12,7 +12,8 @@ const categoryNameValues = [
   "gifts",
   "gadgets",
   "bills",
-  "coffee"
+  "coffee",
+  "unknown"
 ] as const;
 
 type CategoryName = typeof categoryNameValues[number];

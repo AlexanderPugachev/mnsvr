@@ -13,4 +13,5 @@ export type IconName =
   | "bus"
   | "tablet-cellphone"
   | "chevron-right"
+  | "help-circle-outline"
   | "format-list-bulleted";
