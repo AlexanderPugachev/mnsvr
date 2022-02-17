@@ -2,7 +2,11 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Transaction } from "models";
 import { useActions } from "../store";
 
-const initialState: { transactions: Transaction[] } = {
+interface InitState {
+  transactions: Transaction[];
+}
+
+const initialState: InitState = {
   transactions: []
 };
 
@@ -12,11 +16,13 @@ export const transactionSlice = createSlice({
     setItem: (state, action: PayloadAction<Transaction>) => {
       state.transactions.push(action.payload);
     },
-    _setFromAS: (state, action: PayloadAction<Transaction[]>) => {
+    _setSliceStateFromAS: (state, action: PayloadAction<InitState>) => {
       state.transactions.length = 0;
-      console.log("action.payload", action.payload);
-      if (!action.payload.length) return;
-      state.transactions = [...action.payload];
+      if (!action.payload) return;
+      for (let param in action.payload) {
+        // @ts-ignore
+        state[param] = action.payload[param];
+      }
     }
   },
   name: "transactions"

@@ -3,7 +3,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { ScreenProps } from "navigation";
 import { Transaction, transactionUtils } from "models";
 import tw from "tailwind-react-native-classnames";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { accountDictionary, categoryDictionary } from "dictionaries";
 import { Button, KeyboardAvoidingView, ScrollView } from "react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -24,6 +24,7 @@ const getResolver = () =>
   );
 
 export function CreateTransactionModal({ navigation }: ScreenProps) {
+  const [saveAvailable, setSaveAvailable] = useState(true);
   const { setItem } = useActions(transactionSlice.actions);
 
   const formMethods = useForm<FormState>({
@@ -33,13 +34,21 @@ export function CreateTransactionModal({ navigation }: ScreenProps) {
 
   const onSubmit = async (form: FormState) => {
     if (!(await formMethods.trigger())) return;
+    setSaveAvailable(false);
     const transaction = transactionUtils.create(form);
     setItem(transaction);
+    navigation.goBack();
   };
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => <Button title={"Save"} onPress={() => onSubmit(formMethods.getValues())} />
+      headerRight: () => (
+        <Button
+          title={"Save"}
+          onPress={() => onSubmit(formMethods.getValues())}
+          disabled={!saveAvailable}
+        />
+      )
     });
   }, []);
 

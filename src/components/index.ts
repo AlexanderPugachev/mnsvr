@@ -1,3 +1,6 @@
+export * from "./StoreGate";
+
+// need to style
 export * from "./AmountInput";
 export * from "./TextInput";
 export * from "./Icon";
