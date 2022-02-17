@@ -30,6 +30,12 @@ export const TextInput = <Form extends object>({
         field.onChange(value);
         onAfterChangeText?.(value);
       }}
+      onBlur={() => {
+        if (!field?.value?.length) return;
+        const value = field.value.trim();
+        field.onChange(value);
+        onAfterChangeText?.(value);
+      }}
       style={[styles.main, style]}
       underlineColor={"none"}
       {...props}

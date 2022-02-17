@@ -85,7 +85,7 @@ export function CreateTransactionModal({ navigation }: ScreenProps) {
           />
 
           <SelectInput<FormState>
-            options={categoryDictionary}
+            options={categoryDictionary.filter((it) => it.name !== "unknown")}
             name={"category"}
             autoComplete={false}
             label={"Category"}

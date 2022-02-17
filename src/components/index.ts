@@ -5,6 +5,7 @@ export * from "./AmountInput";
 export * from "./TextInput";
 export * from "./Icon";
 export * from "./SelectInput";
+export * from "./TransactionListItem";
 
 // deprecated
 export * from "./EditScreenInfo";
