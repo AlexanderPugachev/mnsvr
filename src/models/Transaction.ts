@@ -3,7 +3,7 @@ import uuid from "react-native-uuid";
 enum TransactionIdBrand {
   _ = ""
 }
-type TransactionId = TransactionIdBrand & string;
+export type TransactionId = TransactionIdBrand & string;
 
 export interface Transaction {
   id: TransactionId;

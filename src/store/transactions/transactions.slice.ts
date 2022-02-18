@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Transaction } from "models";
-import { useActions } from "../store";
+import { Transaction, TransactionId } from "models";
 
 interface InitState {
   transactions: Transaction[];
@@ -15,6 +14,10 @@ export const transactionSlice = createSlice({
   reducers: {
     setItem: (state, action: PayloadAction<Transaction>) => {
       state.transactions.push(action.payload);
+    },
+    deleteItem: (state, action: PayloadAction<TransactionId>) => {
+      const index = state.transactions.findIndex((it) => it.id === action.payload);
+      state.transactions.splice(index, 1);
     },
     _setSliceStateFromAS: (state, action: PayloadAction<InitState>) => {
       state.transactions.length = 0;

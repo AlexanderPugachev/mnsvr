@@ -70,13 +70,8 @@ export const SelectInput = <Form extends object>({
       <InputAccessoryView nativeID={name}>
         {!!firstAvailableOption && !!field.value && (
           <Button
-            onPress={() => {
-              setValue(name, firstAvailableOption.name);
-              console.log("hehe 1 ");
-            }}
             onTouchStart={() => {
               setValue(name, firstAvailableOption.name);
-              console.log("hehe 2 ");
             }}
             icon={firstAvailableOption.icon}
             uppercase={false}

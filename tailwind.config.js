@@ -1,12 +1,8 @@
 module.exports = {
-  content: [
-    './components/**/*.{ts,tsx}',
-    './screens/**/*.{ts,tsx}',
-    './navigation/**/*.{ts,tsx}',
-    './App.tsx',
-  ],
+  content: ["./src/**/*.{ts,tsx}", "./App.tsx"],
+  darkMode: "class",
   theme: {
-    extend: {},
+    extend: {}
   },
-  plugins: [],
-}
+  plugins: []
+};
