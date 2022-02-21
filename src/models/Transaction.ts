@@ -12,13 +12,8 @@ export interface Transaction {
   account: string;
   category: string;
   party: string;
+  createDate: string;
+  createTime: string;
 }
 
-const createTransaction = (params: Omit<Transaction, "id">): Transaction => {
-  const id = uuid.v4() as TransactionId;
-  return { ...params, id };
-};
-
-export const transactionUtils = {
-  create: createTransaction
-};
+export type TransactionUpdateDto = Omit<Transaction, "id" | "createTime" | "createDate">;

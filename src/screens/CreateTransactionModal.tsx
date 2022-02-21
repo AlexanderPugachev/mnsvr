@@ -1,7 +1,7 @@
 import { AmountInput, SelectInput, TextInput } from "components";
 import { useForm, FormProvider } from "react-hook-form";
 import { ScreenProps } from "navigation";
-import { Transaction, transactionUtils } from "models";
+import { TransactionUpdateDto } from "models";
 import tw from "tailwind-react-native-classnames";
 import React, { useEffect, useState } from "react";
 import { accountDictionary, categoryDictionary } from "dictionaries";
@@ -10,7 +10,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { transactionSlice, useActions } from "store";
 
-type FormState = Omit<Transaction, "id">;
+type FormState = TransactionUpdateDto;
 
 const getResolver = () =>
   yupResolver<yup.SchemaOf<FormState>>(
@@ -25,7 +25,7 @@ const getResolver = () =>
 
 export function CreateTransactionModal({ navigation }: ScreenProps) {
   const [saveAvailable, setSaveAvailable] = useState(true);
-  const { setItem } = useActions(transactionSlice.actions);
+  const { createItem } = useActions(transactionSlice.actions);
 
   const formMethods = useForm<FormState>({
     defaultValues: { currency: "RUB" },
@@ -35,8 +35,7 @@ export function CreateTransactionModal({ navigation }: ScreenProps) {
   const onSubmit = async (form: FormState) => {
     if (!(await formMethods.trigger())) return;
     setSaveAvailable(false);
-    const transaction = transactionUtils.create(form);
-    setItem(transaction);
+    createItem(form);
     navigation.goBack();
   };
 
