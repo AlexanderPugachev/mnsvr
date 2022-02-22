@@ -2,7 +2,7 @@ import { IconName } from "components";
 
 const CategoryTypeCodeValues = ["INCOME", "EXPENSES"] as const;
 
-type CategoryTypeCode = typeof CategoryTypeCodeValues[number];
+type CategoryDirection = typeof CategoryTypeCodeValues[number];
 
 const categoryNameValues = [
   "food delivery",
@@ -20,6 +20,6 @@ type CategoryName = typeof categoryNameValues[number];
 
 export interface Category {
   name: CategoryName;
-  type: CategoryTypeCode;
+  direction: CategoryDirection;
   icon: IconName;
 }

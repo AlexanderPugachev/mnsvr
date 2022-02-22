@@ -4,9 +4,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useDispatch } from "react-redux";
 import { useMemo } from "react";
 import { ActionCreatorsMapObject } from "redux";
+import { categoriesSlice } from "./categories";
 
 const rootReducer = combineReducers({
-  transactions: transactionSlice.reducer
+  transactions: transactionSlice.reducer,
+  categories: categoriesSlice.reducer
 });
 
 export const store = configureStore({ reducer: rootReducer });

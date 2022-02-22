@@ -17,7 +17,7 @@ export const TransactionListItem = memo(({ category, ...props }: Transaction) =>
   const currentCategory = useMemo<Category>(() => {
     const defaultCategory = categoryDictionary.find((it) => it.name === "unknown") as Category;
     const current = categoryDictionary.find((it) => it.name === category) ?? defaultCategory;
-    setIsIncome(current.type === "INCOME");
+    setIsIncome(current.direction === "INCOME");
     return current;
   }, [category]);
 

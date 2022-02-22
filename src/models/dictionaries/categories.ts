@@ -4,46 +4,46 @@ export const categoryDictionary: Category[] = [
   {
     name: "unknown",
     icon: "help-circle-outline",
-    type: "EXPENSES"
+    direction: "EXPENSES"
   },
   {
     name: "food delivery",
-    type: "EXPENSES",
+    direction: "EXPENSES",
     icon: "moped"
   },
   {
     name: "groceries",
-    type: "EXPENSES",
+    direction: "EXPENSES",
     icon: "cart"
   },
   {
     name: "salary",
-    type: "INCOME",
+    direction: "INCOME",
     icon: "cash"
   },
   {
     name: "bills",
-    type: "EXPENSES",
+    direction: "EXPENSES",
     icon: "file-document-outline"
   },
   {
     name: "coffee",
-    type: "EXPENSES",
+    direction: "EXPENSES",
     icon: "coffee"
   },
   {
     name: "gadgets",
-    type: "EXPENSES",
+    direction: "EXPENSES",
     icon: "tablet-cellphone"
   },
   {
     name: "transport",
-    type: "EXPENSES",
+    direction: "EXPENSES",
     icon: "bus"
   },
   {
     name: "gifts",
-    type: "EXPENSES",
+    direction: "EXPENSES",
     icon: "hand-heart"
   }
 ];
