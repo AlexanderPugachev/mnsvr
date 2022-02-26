@@ -1,11 +1,13 @@
 import { Category } from "../Category";
 
+export const unknownCategory: Category = {
+  name: "unknown",
+  icon: "help-circle-outline",
+  direction: "EXPENSES"
+};
+
 export const categoryDictionary: Category[] = [
-  {
-    name: "unknown",
-    icon: "help-circle-outline",
-    direction: "EXPENSES"
-  },
+  unknownCategory,
   {
     name: "food delivery",
     direction: "EXPENSES",

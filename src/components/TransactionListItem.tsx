@@ -1,6 +1,6 @@
 import React, { memo, useMemo, useState } from "react";
 import { Category, Transaction, TransactionId } from "models";
-import { categoryDictionary } from "dictionaries";
+import { categoryDictionary, unknownCategory } from "dictionaries";
 import { List } from "react-native-paper";
 import { Text } from "./Themed";
 import Swipeable from "react-native-gesture-handler/Swipeable";
@@ -15,8 +15,7 @@ export const TransactionListItem = memo(({ category, ...props }: Transaction) =>
   const [isIncome, setIsIncome] = useState(false);
 
   const currentCategory = useMemo<Category>(() => {
-    const defaultCategory = categoryDictionary.find((it) => it.name === "unknown") as Category;
-    const current = categoryDictionary.find((it) => it.name === category) ?? defaultCategory;
+    const current = categoryDictionary.find((it) => it.name === category) ?? unknownCategory;
     setIsIncome(current.direction === "INCOME");
     return current;
   }, [category]);

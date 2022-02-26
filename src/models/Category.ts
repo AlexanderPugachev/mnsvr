@@ -4,22 +4,12 @@ const CategoryTypeCodeValues = ["INCOME", "EXPENSES"] as const;
 
 type CategoryDirection = typeof CategoryTypeCodeValues[number];
 
-const categoryNameValues = [
-  "food delivery",
-  "groceries",
-  "salary",
-  "transport",
-  "gifts",
-  "gadgets",
-  "bills",
-  "coffee",
-  "unknown"
-] as const;
+export const utilsCategoryNameValues = ["unknown"];
 
-type CategoryName = typeof categoryNameValues[number];
+type UtilsCategoryName = typeof utilsCategoryNameValues[number];
 
 export interface Category {
-  name: CategoryName;
+  name: UtilsCategoryName | string;
   direction: CategoryDirection;
   icon: IconName;
 }

@@ -4,11 +4,11 @@ import { ScreenProps } from "navigation";
 import { TransactionUpdateDto } from "models";
 import tw from "tailwind-react-native-classnames";
 import React, { useEffect, useState } from "react";
-import { accountDictionary, categoryDictionary } from "dictionaries";
+import { accountDictionary } from "dictionaries";
 import { Button, KeyboardAvoidingView, ScrollView } from "react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
-import { transactionSlice, useActions } from "store";
+import { transactionSlice, useActions, useAllUserCategories } from "store";
 
 type FormState = TransactionUpdateDto;
 
@@ -26,6 +26,9 @@ const getResolver = () =>
 export function CreateTransactionModal({ navigation }: ScreenProps) {
   const [saveAvailable, setSaveAvailable] = useState(true);
   const { createItem } = useActions(transactionSlice.actions);
+  const categories = useAllUserCategories();
+
+  console.log("categories", categories);
 
   const formMethods = useForm<FormState>({
     defaultValues: { currency: "RUB" },
@@ -84,7 +87,7 @@ export function CreateTransactionModal({ navigation }: ScreenProps) {
           />
 
           <SelectInput<FormState>
-            options={categoryDictionary.filter((it) => it.name !== "unknown")}
+            options={categories}
             name={"category"}
             autoComplete={false}
             label={"Category"}

@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Category } from "models";
+import { categoryDictionary } from "dictionaries";
 
 interface InitState {
   categories: Category[];
@@ -24,8 +25,13 @@ export const categoriesSlice = createSlice({
       state.categories.splice(index, 1, action.payload);
     },
     _setSliceStateFromAS: (state, action: PayloadAction<InitState>) => {
-      state.categories.length = 0;
       if (!action.payload) return;
+      state.categories.length = 0;
+      if (!action.payload.categories.length) {
+        // setting default categories in first application run
+        state.categories = categoryDictionary;
+        return;
+      }
       for (let param in action.payload) {
         // @ts-ignore
         state[param] = action.payload[param];
