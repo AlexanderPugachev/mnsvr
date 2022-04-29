@@ -24,6 +24,8 @@ const getResolver = () =>
     })
   );
 
+// test
+
 export function EditTransactionModal({ navigation, route }: DirectScreenProps<"Transaction">) {
   const [saveAvailable, setSaveAvailable] = useState(true);
   const { createItem, editItem } = useActions(transactionSlice.actions);
