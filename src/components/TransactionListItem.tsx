@@ -8,53 +8,63 @@ import { Pressable, View } from "react-native";
 import { transactionSlice, useActions } from "store";
 import tw from "tailwind-react-native-classnames";
 import useColorScheme from "../hooks/useColorScheme";
+import { ScreenProps } from "navigation";
 
-export const TransactionListItem = memo(({ category, ...props }: Transaction) => {
-  const theme = useColorScheme();
-  const { deleteItem } = useActions(transactionSlice.actions);
-  const [isIncome, setIsIncome] = useState(false);
+export const TransactionListItem = memo(
+  ({ category, navigation, route, ...props }: Transaction & ScreenProps) => {
+    const theme = useColorScheme();
+    const { deleteItem } = useActions(transactionSlice.actions);
+    const [isIncome, setIsIncome] = useState(false);
 
-  const currentCategory = useMemo<Category>(() => {
-    const current = categoryDictionary.find((it) => it.name === category) ?? unknownCategory;
-    setIsIncome(current.direction === "INCOME");
-    return current;
-  }, [category]);
+    const currentCategory = useMemo<Category>(() => {
+      const current = categoryDictionary.find((it) => it.name === category) ?? unknownCategory;
+      setIsIncome(current.direction === "INCOME");
+      return current;
+    }, [category]);
 
-  const LeftSwipeActions = () => {
+    const LeftSwipeActions = () => {
+      return (
+        <View style={styles.leftActions[theme]}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate("Transaction", {
+                mode: "edit",
+                transaction: { category, ...props }
+              })
+            }
+          >
+            <List.Icon icon={"pencil"} color={styles.actionIcon[theme]} />
+          </Pressable>
+        </View>
+      );
+    };
+
+    const rightSwipeActions = (id: TransactionId) => {
+      return (
+        <View style={styles.rightActions[theme]}>
+          <Pressable onPress={() => deleteItem(id)}>
+            <List.Icon icon={"delete"} color={styles.actionIcon[theme]} />
+          </Pressable>
+        </View>
+      );
+    };
+
     return (
-      <View style={styles.leftActions[theme]}>
-        <Pressable onPress={() => "editItem"}>
-          <List.Icon icon={"pencil"} color={styles.actionIcon[theme]} />
-        </Pressable>
-      </View>
+      <Swipeable
+        renderLeftActions={LeftSwipeActions}
+        renderRightActions={() => rightSwipeActions(props.id)}
+      >
+        <List.Item
+          title={`${isIncome ? "+" : "-"}${props.amount} (${props.party})`}
+          description={currentCategory.name}
+          left={() => <List.Icon icon={currentCategory.icon} />}
+          right={() => <Text>{props.amount}</Text>}
+          style={styles.listItem[theme]}
+        />
+      </Swipeable>
     );
-  };
-
-  const rightSwipeActions = (id: TransactionId) => {
-    return (
-      <View style={styles.rightActions[theme]}>
-        <Pressable onPress={() => deleteItem(id)}>
-          <List.Icon icon={"delete"} color={styles.actionIcon[theme]} />
-        </Pressable>
-      </View>
-    );
-  };
-
-  return (
-    <Swipeable
-      renderLeftActions={LeftSwipeActions}
-      renderRightActions={() => rightSwipeActions(props.id)}
-    >
-      <List.Item
-        title={`${isIncome ? "+" : "-"}${props.amount} (${props.party})`}
-        description={currentCategory.name}
-        left={() => <List.Icon icon={currentCategory.icon} />}
-        right={() => <Text>{props.amount}</Text>}
-        style={styles.listItem[theme]}
-      />
-    </Swipeable>
-  );
-});
+  }
+);
 
 const styles = {
   rightActions: {

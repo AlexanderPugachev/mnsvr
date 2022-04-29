@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { CreateTransactionModal, HomeScreen, NotFoundScreen, TransactionsScreen } from "screens";
+import { EditTransactionModal, HomeScreen, NotFoundScreen, TransactionsScreen } from "screens";
 import * as React from "react";
 import { IconButton } from "react-native-paper";
 import { RootStackParamList } from "./Navigation.config";
@@ -17,17 +17,20 @@ export function RootNavigator() {
         component={TransactionsScreen}
         options={({ navigation }) => ({
           headerRight: () => (
-            <IconButton onPress={() => navigation.navigate("CreateTransaction")} icon={"plus"} />
+            <IconButton
+              onPress={() => navigation.navigate("Transaction", { mode: "create" })}
+              icon={"plus"}
+            />
           )
         })}
       />
 
       <Stack.Group screenOptions={{ presentation: "modal" }}>
         <Stack.Screen
-          name="CreateTransaction"
-          component={CreateTransactionModal}
-          options={({ navigation }) => ({
-            title: "create transaction",
+          name="Transaction"
+          component={EditTransactionModal}
+          options={({ navigation, route }) => ({
+            title: `${route.params.mode} transaction`,
             headerLeft: () => <Button title={"Cancel"} onPress={() => navigation.goBack()} />
           })}
         />

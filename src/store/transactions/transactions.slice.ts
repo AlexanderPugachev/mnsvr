@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Transaction, TransactionId, TransactionUpdateDto } from "models";
+import { Transaction, TransactionId, TransactionCreateDto, TransactionUpdateDto } from "models";
 import formatISO from "date-fns/formatISO";
 import uuid from "react-native-uuid";
 
@@ -14,7 +14,7 @@ const initialState: InitState = {
 export const transactionSlice = createSlice({
   initialState,
   reducers: {
-    createItem: (state, action: PayloadAction<TransactionUpdateDto>) => {
+    createItem: (state, action: PayloadAction<TransactionCreateDto>) => {
       const now = Date.now();
       const transaction: Transaction = {
         id: uuid.v4() as TransactionId,
@@ -28,9 +28,9 @@ export const transactionSlice = createSlice({
       const index = state.transactions.findIndex((it) => it.id === action.payload);
       state.transactions.splice(index, 1);
     },
-    editItem: (state, action: PayloadAction<Transaction>) => {
+    editItem: (state, action: PayloadAction<TransactionUpdateDto>) => {
       const index = state.transactions.findIndex((it) => it.id === action.payload.id);
-      state.transactions.splice(index, 1, action.payload);
+      state.transactions.splice(index, 1, { ...state.transactions[index], ...action.payload });
     },
     _setSliceStateFromAS: (state, action: PayloadAction<InitState>) => {
       state.transactions.length = 0;

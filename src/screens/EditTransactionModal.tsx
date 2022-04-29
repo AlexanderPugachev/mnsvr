@@ -1,7 +1,7 @@
 import { AmountInput, SelectInput, TextInput } from "components";
 import { useForm, FormProvider } from "react-hook-form";
 import { ScreenProps } from "navigation";
-import { TransactionUpdateDto } from "models";
+import { TransactionCreateDto } from "models";
 import tw from "tailwind-react-native-classnames";
 import React, { useEffect, useState } from "react";
 import { accountDictionary } from "dictionaries";
@@ -9,8 +9,9 @@ import { Button, KeyboardAvoidingView, ScrollView } from "react-native";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import { transactionSlice, useActions, useAllUserCategories } from "store";
+import { DirectScreenProps } from "../navigation/Navigation.config";
 
-type FormState = TransactionUpdateDto;
+type FormState = TransactionCreateDto;
 
 const getResolver = () =>
   yupResolver<yup.SchemaOf<FormState>>(
@@ -23,22 +24,21 @@ const getResolver = () =>
     })
   );
 
-export function CreateTransactionModal({ navigation }: ScreenProps) {
+export function EditTransactionModal({ navigation, route }: DirectScreenProps<"Transaction">) {
   const [saveAvailable, setSaveAvailable] = useState(true);
-  const { createItem } = useActions(transactionSlice.actions);
+  const { createItem, editItem } = useActions(transactionSlice.actions);
   const categories = useAllUserCategories();
 
-  console.log("categories", categories);
-
   const formMethods = useForm<FormState>({
-    defaultValues: { currency: "RUB" },
+    defaultValues: route.params.mode === "edit" ? route.params.transaction : { currency: "RUB" },
     resolver: getResolver()
   });
 
   const onSubmit = async (form: FormState) => {
     if (!(await formMethods.trigger())) return;
     setSaveAvailable(false);
-    createItem(form);
+    if (route.params.mode === "edit") editItem({ id: route.params.transaction.id, ...form });
+    else createItem(form);
     navigation.goBack();
   };
 

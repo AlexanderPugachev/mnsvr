@@ -16,4 +16,5 @@ export interface Transaction {
   createTime: string;
 }
 
-export type TransactionUpdateDto = Omit<Transaction, "id" | "createTime" | "createDate">;
+export type TransactionCreateDto = Omit<Transaction, "id" | "createTime" | "createDate">;
+export type TransactionUpdateDto = Omit<Transaction, "createTime" | "createDate">;

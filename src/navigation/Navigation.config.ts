@@ -1,28 +1,29 @@
-/**
- * Learn more about deep linking with React Navigation
- * https://reactnavigation.org/docs/deep-linking
- * https://reactnavigation.org/docs/configuring-links
- */
+import { LinkingOptions } from "@react-navigation/native";
+import * as Linking from "expo-linking";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { Transaction } from "models";
 
-import {LinkingOptions} from '@react-navigation/native';
-import * as Linking from 'expo-linking';
-import {NativeStackScreenProps} from "@react-navigation/native-stack";
+export interface RootStackParamList extends Record<string, undefined | object> {
+  Home: undefined;
+  Transactions: undefined;
+  NotFound: undefined;
+  Transaction: { mode: "create" } | { mode: "edit"; transaction: Transaction };
+}
 
-const pageValues = ['Home', 'Transactions', 'NotFound', 'CreateTransaction'] as const;
-type Page = typeof pageValues[number];
-
-export type RootStackParamList = Record<Page, undefined>;
 export type ScreenProps = NativeStackScreenProps<RootStackParamList>;
+export type DirectScreenProps<RouteName extends keyof RootStackParamList> = NativeStackScreenProps<
+  RootStackParamList,
+  RouteName
+>;
 
 export const navigationConfig: LinkingOptions<RootStackParamList> = {
-  prefixes: [Linking.makeUrl('/')],
+  prefixes: [Linking.makeUrl("/")],
   config: {
     screens: {
-      Home: '/',
-      Transactions: 'transactions',
-      CreateTransaction: 'transactions/create',
-      NotFound: '*',
-    },
-  },
+      Home: "/",
+      Transactions: "transactions",
+      Transaction: "transactions/item",
+      NotFound: "*"
+    }
+  }
 };
-

@@ -8,8 +8,8 @@ export function TransactionsScreen(props: ScreenProps) {
 
   return (
     <>
-      {transactions?.map((it) => (
-        <TransactionListItem key={it.id} {...it} />
+      {transactions?.map((transaction) => (
+        <TransactionListItem key={transaction.id} {...props} {...transaction} />
       ))}
     </>
   );
